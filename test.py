@@ -31,15 +31,14 @@ class RandomThings(commands.Cog):
 
             number_of_task = random.choice(one_task)
             pictures = all_tasks[number_of_task][1]
-            if not pictures:
+            if pictures == 'none':
                 await ctx.send(all_tasks[number_of_task][3])
             else:
                 await ctx.send({files: [pictures]})
 
-TOKEN = "OTQwMzkxMjA0Mjc1NzY5NDE1.YgGtjg.4CBQerUQwL2TFWfH_cxvYsvW18g"
+TOKEN = "OTQwMzkxMjA0Mjc1NzY5NDE1.YgGtjg.zVB4IBlRHJ712ggz0gkM0lnmchI"
 
 bot = commands.Bot(command_prefix='!')
 bot.add_cog(RandomThings(bot))
 bot.run(TOKEN)
-
 
