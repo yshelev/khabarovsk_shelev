@@ -4,7 +4,7 @@ from discord.ext import commands
 import random
 from pprint import pprint
 
-TOKEN = ""
+TOKEN = "OTQwMzkxMjA0Mjc1NzY5NDE1.YgGtjg.zVB4IBlRHJ712ggz0gkM0lnmchI"
 bot = commands.Bot(command_prefix='!')
 
 current_task = '-1'
@@ -19,15 +19,18 @@ with open('егэ по физике задания.txt', encoding='utf-8', mode=
                                               isplited[2].strip('\n'),
                                               isplited[3].strip('\n'),
                                               isplited[4].strip('\n')]
-                                #0 - номер задания, 1 - ответ, 2 - картинки, 3 - пояснение, 4 - само задание
+                                              #0 - номер задания, 1 - ответ, 2 - картинки, 3 - пояснение, 4 - само задание
 
 pprint(all_tasks)
+
+
 @bot.command(name='задание')
 async def tasks(ctx, number):
     global current_task
+    await ctx.send('x')
     one_task = []
     for i in list(all_tasks):
-        if i[:i.find('.')] == number:
+        if str(i[:i.find('.')]) == str(number):
             one_task.append(i)
 
     current_task = random.choice(one_task)
@@ -38,14 +41,10 @@ async def tasks(ctx, number):
         await ctx.send('x')
 
 
-@bot.command(name='анекдот')
-async def stirlitz(ctx):
-    await ctx.send("https://phys-ege.sdamgia.ru/get_file?id=91721")
-
-
 @bot.event
 async def on_message(message):
     global current_task
+    await bot.process_commands(message)
     if message.author == bot.user or '!' in message.content:
         return
     if 'анекдот' in message.content:
