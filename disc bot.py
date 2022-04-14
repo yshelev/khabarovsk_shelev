@@ -81,8 +81,6 @@ async def mast(ctx):
     current_command = 4
     deck = requests.get('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1').json()
     card = requests.get('https://deckofcardsapi.com/api/deck/' + deck["deck_id"] + '/draw/?count=1').json()
-    pprint(card)
-    pprint(deck)
     if card['cards'][0]["value"] in list(a):
         await ctx.send('ты по масти ' + a[card['cards'][0]["value"]] + ' ' + a[card['cards'][0]["suit"]])
         await ctx.send(card['cards'][0]["image"])
@@ -146,7 +144,6 @@ async def yesorno(ctx):
     a = {'no': 'нет', 'yes': 'да', 'maybe': 'наверное..'}
     current_command = 10
     yon = requests.get('https://yesno.wtf/api').json()
-    print(yon)
     await ctx.send(a[yon['answer']])
     await ctx.send(yon['image'])
 
@@ -178,7 +175,6 @@ async def bitcoin(ctx):
     global current_command
     current_command = 12
     bitok = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json').json()
-    pprint(bitok)
     await ctx.send(bitok['bpi']['USD']['rate'][:bitok['bpi']['USD']['rate'].find('.')] + ' ' + bitok['bpi']['USD']['code'])
 
 
@@ -187,7 +183,6 @@ async def randombro(ctx):
     global current_command
     current_command = 12
     bro = requests.get('https://randomuser.me/api/').json()
-    pprint(bro)
     await ctx.send('имя - ' + bro['results'][0]['name']['first'])
     await ctx.send('гендер - ' + bro['results'][0]['gender'])
     await ctx.send("возраст - " + str(bro['results'][0]['dob']['age']))
