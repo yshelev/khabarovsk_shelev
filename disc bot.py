@@ -79,6 +79,9 @@ async def bignumbers(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -102,6 +105,9 @@ async def smallnumbers(ctx, num):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -123,6 +129,9 @@ async def bored(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -154,6 +163,9 @@ async def mast(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -183,6 +195,9 @@ async def meow(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -205,6 +220,9 @@ async def help(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -228,6 +246,9 @@ async def anekdot(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -250,6 +271,9 @@ async def stih(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -272,6 +296,9 @@ async def citata(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -294,6 +321,9 @@ async def stat(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -320,6 +350,9 @@ async def yesorno(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -343,6 +376,9 @@ async def randomimage(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -365,6 +401,9 @@ async def anime(ctx, *name):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -397,6 +436,9 @@ async def bitcoin(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -420,6 +462,9 @@ async def tanks(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
@@ -442,6 +487,9 @@ async def randombro(ctx):
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
     for i in query:
         c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
 
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
