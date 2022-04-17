@@ -534,20 +534,29 @@ async def myinfo(ctx):
 
 @bot.event
 async def on_message(message):
-    global current_task, count_right_ans
+    global current_task, count_right_ans, current_command
     await bot.process_commands(message)
-    if current_command == 0:
-        if message.author == bot.user or '!' in message.content:
-            return
-        if 'анекдот' in message.content:
-            await message.channel.send("а я тоже анекдотики знаю... Вот команда - !анекдот")
-            return
+    if message.author == bot.user or '!' in message.content:
+        return
+    if 'анекдот' in message.content.lower():
+        await message.channel.send("а я тоже анекдотики знаю... Вот команда - !анекдот")
+        return
 
+    if current_command == 1000:
+        if 'да' in message.content.lower() or 'ок' in message.content.lower() or 'хорошо' in message.content.lower():
+            await message.channel.send('хорошо')
+            await tasks(message.channel, current_task[:current_task.find('.')])
+            return
+        else:
+            await message.channel.send('как хотите(')
+
+    if current_command == 0:
         if message.content == all_tasks[current_task][0]:
             count_right_ans += 1
             await message.channel.send("правильно!")
             await message.channel.send('вы ответили верно уже', count_right_ans, 'раз(а)')
-            await tasks(message.channel, current_task[:current_task.find('.')])
+            await message.channel.send('хотите продолжить?')
+
             return
         elif message.content == 'подсказка':
             if all_tasks[current_task][2] == 'none':
