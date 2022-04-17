@@ -12,7 +12,6 @@ TOKEN = "OTQwMzkxMjA0Mjc1NzY5NDE1.YgGtjg.zVB4IBlRHJ712ggz0gkM0lnmchI"
 bot = commands.Bot(command_prefix='!')
 
 conn = SqliteDatabase('disc_bot.sqlite')
-count_right_ans = 0
 
 class BaseModel(Model):
     class Meta:
@@ -30,10 +29,11 @@ class User(BaseModel):
         table_name = 'sharpie'
 
 
-cursor = conn.cursor()
 current_command = -1
 current_task = '-1'
-c = 0
+count_right_ans = 0
+
+
 all_tasks = {}
 with open('егэ по физике задания.txt', encoding='utf-8', mode="r") as f:
     tasks = f.read()
@@ -68,16 +68,18 @@ async def tasks(ctx, number):
 
 @bot.command(name='большиефакты')
 async def bignumbers(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 1
-    c += 1
     conn = SqliteDatabase('disc_bot.sqlite')
 
     cursor = conn.cursor()
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -89,8 +91,7 @@ async def bignumbers(ctx):
 
 @bot.command(name='маленькиефакты')
 async def smallnumbers(ctx, num):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 2
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -98,6 +99,9 @@ async def smallnumbers(ctx, num):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -107,8 +111,7 @@ async def smallnumbers(ctx, num):
 
 @bot.command(name='скучно')
 async def bored(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 3
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -116,10 +119,17 @@ async def bored(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
+
     response = requests.get('http://www.boredapi.com/api/activity/').json()
+
     await ctx.send(response['activity'])
     await ctx.send('а помимо этого, я тебе могу анекдот рассказать)')
     await anekdot(ctx)
@@ -127,8 +137,7 @@ async def bored(ctx):
 
 @bot.command(name='узнатьмасть')
 async def mast(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     a = {'2': 'двойка', '3': 'тройка', '4': 'четверка', '5': 'пятерка',
          '6': 'шестерка', '7': 'семерка', '8': "восьмерка", '9': 'девятка', '10': 'десятка',
          "QUEEN": 'королева', "KING": 'король',
@@ -141,6 +150,11 @@ async def mast(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
 
@@ -157,8 +171,7 @@ async def mast(ctx):
 
 @bot.command(name='мяу')
 async def meow(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 5
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -166,6 +179,11 @@ async def meow(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -175,8 +193,7 @@ async def meow(ctx):
 
 @bot.command(name='помощь')
 async def help(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 100
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -184,6 +201,11 @@ async def help(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -194,8 +216,7 @@ async def help(ctx):
 
 @bot.command(name='анекдот')
 async def anekdot(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 6
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -203,6 +224,11 @@ async def anekdot(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -212,8 +238,7 @@ async def anekdot(ctx):
 
 @bot.command(name='стих')
 async def stih(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 7
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -221,6 +246,11 @@ async def stih(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -230,8 +260,7 @@ async def stih(ctx):
 
 @bot.command(name='цитата')
 async def citata(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 8
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -239,6 +268,11 @@ async def citata(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -248,8 +282,7 @@ async def citata(ctx):
 
 @bot.command(name='статус')
 async def stat(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 9
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -257,6 +290,11 @@ async def stat(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
 
@@ -269,8 +307,7 @@ async def stat(ctx):
 
 @bot.command(name='данет')
 async def yesorno(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     a = {'no': 'нет', 'yes': 'да', 'maybe': 'наверное..'}
     current_command = 10
     conn = SqliteDatabase('disc_bot.sqlite')
@@ -279,6 +316,11 @@ async def yesorno(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -289,8 +331,7 @@ async def yesorno(ctx):
 
 @bot.command(name='изображение')
 async def randomimage(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 11
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -298,6 +339,11 @@ async def randomimage(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -307,8 +353,7 @@ async def randomimage(ctx):
 
 @bot.command(name='аниме')
 async def anime(ctx, *name):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 12
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -316,13 +361,20 @@ async def anime(ctx, *name):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
+
     query = User.update(anime=' '.join(name)).where(User.username == ctx.author)
     query.execute()
     conn.close()
+
     animelist = requests.get('https://api.jikan.moe/v4/anime?q=' + ' '.join(name)).json()
-    for i in animelist['data'][:5]:
+    for i in animelist['data'][:3]:
         await ctx.send(i['images']['jpg']['large_image_url'])
         await ctx.send('название: ' + i['title'])
         await ctx.send('синопсис: ' + i['synopsis'])
@@ -333,8 +385,7 @@ async def anime(ctx, *name):
 
 @bot.command(name='биток')
 async def bitcoin(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 13
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -342,6 +393,11 @@ async def bitcoin(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -352,8 +408,7 @@ async def bitcoin(ctx):
 
 @bot.command(name='танки')
 async def tanks(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 20
     conn = SqliteDatabase('disc_bot.sqlite')
 
@@ -361,6 +416,11 @@ async def tanks(ctx):
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -372,13 +432,17 @@ async def tanks(ctx):
 
 @bot.command(name='придумайчеловека')
 async def randombro(ctx):
-    global current_command, c
-    c += 1
+    global current_command
     current_command = 14
 
 
     if not User(User.username == ctx.author):
         User.create(username=ctx.author)
+
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+
     query = User.update(count=c).where(User.username == ctx.author)
     query.execute()
     conn.close()
@@ -395,6 +459,29 @@ async def randombro(ctx):
     await ctx.send('любимый пароль - ' + bro['results'][0]['login']['password'])
     await ctx.send('фото: ')
     await ctx.send(bro['results'][0]['picture']['large'])
+
+
+@bot.command(name='myinfo')
+async def myinfo(ctx):
+    global current_command
+    current_command = 15
+    if not User(User.username == ctx.author):
+        User.create(username=ctx.author)
+    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        c = i['count'] + 1
+        if c >= 100:
+            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
+            c = 0
+
+    query = User.update(count=c).where(User.username == ctx.author)
+    query.execute()
+    query = User.select(User.username, User.count, User.mast, User.status, User.anime).where(User.username == ctx.author).dicts().execute()
+    for i in query:
+        await ctx.send(i['username'][:-5] + ', вы сделали уже ' + str(i['count']) + ' запросов')
+        await ctx.send('ваш текущий статус: ' + i['status'] + ' по масти вы: ' + i['mast'])
+        await ctx.send('последнее просмотренное вами аниме - ' + i['anime'])
+    conn.close()
 
 
 @bot.event
