@@ -58,13 +58,6 @@ with open('егэ по физике задания.txt', encoding='utf-8', mode=
 async def tasks(ctx, number):
     global current_task, current_command
 
-    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
-    for i in query:
-        c = i['count'] + 1
-        if c >= 100:
-            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
-            c = 0
-
     current_command = 0
     one_task = []
     for i in list(all_tasks):
@@ -87,9 +80,10 @@ async def bignumbers(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -113,10 +107,10 @@ async def smallnumbers(ctx, num):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
-
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -138,10 +132,11 @@ async def bored(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -172,10 +167,11 @@ async def mast(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -196,31 +192,6 @@ async def mast(ctx):
     conn.close()
 
 
-@bot.command(name='мяу')
-async def meow(ctx):
-    global current_command
-    current_command = 5
-    conn = SqliteDatabase('disc_bot.sqlite')
-
-    cursor = conn.cursor()
-
-    if not User(User.username == ctx.author):
-        User.create(username=ctx.author)
-
-    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
-    for i in query:
-        c = i['count'] + 1
-        if c >= 100:
-            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
-            c = 0
-
-    query = User.update(count=c).where(User.username == ctx.author)
-    query.execute()
-    conn.close()
-    animal = requests.get('https://aws.random.cat/meow').json()
-    await ctx.send(animal['file'])
-
-
 @bot.command(name='помощь')
 async def help(ctx):
     global current_command
@@ -229,10 +200,11 @@ async def help(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -255,10 +227,11 @@ async def anekdot(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -280,10 +253,11 @@ async def stih(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -305,10 +279,11 @@ async def citata(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -330,10 +305,11 @@ async def stat(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -359,10 +335,11 @@ async def yesorno(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -385,10 +362,11 @@ async def first(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -413,10 +391,11 @@ async def anime(ctx, *name):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -448,10 +427,11 @@ async def bitcoin(ctx):
 
     cursor = conn.cursor()
 
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -462,35 +442,7 @@ async def bitcoin(ctx):
     query.execute()
     conn.close()
     bitok = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json').json()
-    pprint(bitok)
     await ctx.send(bitok['bpi']['USD']['rate'][:bitok['bpi']['USD']['rate'].find('.')] + ' ' + bitok['bpi']['USD']['code'])
-
-
-@bot.command(name='танки')
-async def tanks(ctx):
-    global current_command
-    current_command = 20
-    conn = SqliteDatabase('disc_bot.sqlite')
-
-    cursor = conn.cursor()
-
-    if not User(User.username == ctx.author):
-        User.create(username=ctx.author)
-
-    query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
-    for i in query:
-        c = i['count'] + 1
-        if c >= 100:
-            await ctx.send('кол-во ваших запросов обновлено, теперь оно равно 0')
-            c = 0
-
-    query = User.update(count=c).where(User.username == ctx.author)
-    query.execute()
-    conn.close()
-    try:
-        import проект_танки.py
-    except Exception:
-        pass
 
 
 @bot.command(name='придумайчеловека')
@@ -498,11 +450,11 @@ async def randombro(ctx):
     global current_command
     current_command = 14
 
-
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
 
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -513,7 +465,6 @@ async def randombro(ctx):
     query.execute()
     conn.close()
     bro = requests.get('https://randomuser.me/api/').json()
-    pprint(bro)
     await ctx.send('имя - ' + bro['results'][0]['name']['first'])
     await ctx.send('гендер - ' + bro['results'][0]['gender'])
     await ctx.send("возраст - " + str(bro['results'][0]['dob']['age']))
@@ -531,9 +482,10 @@ async def randombro(ctx):
 async def myinfo(ctx):
     global current_command
     current_command = 15
-    if not User(User.username == ctx.author):
+    if not User.select(User.username).where(User.username == ctx.author).dicts().execute():
         User.create(username=ctx.author)
     query = User.select(User.count).where(User.username == ctx.author).dicts().execute()
+    c = 0
     for i in query:
         c = i['count'] + 1
         if c >= 100:
@@ -544,8 +496,12 @@ async def myinfo(ctx):
     query.execute()
     query = User.select(User.username, User.count, User.mast, User.status, User.anime).where(User.username == ctx.author).dicts().execute()
     for i in query:
-        await ctx.send(i['username'][:-5] + ', вы сделали уже ' + str(i['count']) + ' запросов')
-        await ctx.send('ваш текущий статус: ' + i['status'] + ' по масти вы: ' + i['mast'])
+        if i['count']:
+            await ctx.send(i['username'][:-5] + ', вы сделали уже ' + str(i['count']) + ' запросов')
+        if i['status']:
+            await ctx.send('ваш текущий статус: ' + i['status'])
+        if i['mast']:
+            await ctx.send('по масти вы: ' + i['mast'])
         await ctx.send('последнее просмотренное вами аниме - ' + i['anime'])
     conn.close()
 
@@ -579,7 +535,7 @@ async def on_message(message):
         if message.content == all_tasks[current_task][0]:
             count_right_ans += 1
             await message.channel.send("правильно!")
-            await message.channel.send('вы ответили верно уже', count_right_ans, 'раз(а)')
+            await message.channel.send('вы ответили верно уже' + str(count_right_ans) + 'раз(а)')
             await tasks(message.channel, current_task[:current_task.find('.')])
             return
         elif message.content == 'подсказка':
