@@ -8,7 +8,7 @@ import requests
 from peewee import *
 
 
-TOKEN = "OTQwMzkxMjA0Mjc1NzY5NDE1.YgGtjg.zVB4IBlRHJ712ggz0gkM0lnmchI"
+TOKEN = "ТОКЕН"
 bot = commands.Bot(command_prefix='!')
 
 conn = SqliteDatabase('disc_bot.sqlite')
